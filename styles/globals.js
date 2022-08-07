@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   *,
@@ -24,12 +24,18 @@ export default createGlobalStyle`
     min-height: 100vh;
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
-    line-height: 1.5;
+    line-height: 1.3;
+    background-color: #151515;
   }
 
   ul,
   ol {
     list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 
   img {
@@ -52,4 +58,4 @@ export default createGlobalStyle`
       scroll-behavior: auto !important;
     }
   }
-`
+`;
