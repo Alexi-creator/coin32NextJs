@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "date-fns": "^2.29.1",
     "next": "12.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "swiper": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^8.21.0",

@@ -8,7 +8,6 @@ export const WrapperGame = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
-  /* border: 1px solid blue; */
   margin-top: 20px;
 
   @media ${({ theme }) => theme.media.small} {
