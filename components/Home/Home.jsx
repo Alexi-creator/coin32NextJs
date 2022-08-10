@@ -5,12 +5,54 @@ import { Game } from '../Game/Game';
 import { H1 } from '../Typography/Typography';
 import { Search } from '../Search/Search';
 import { Fetching } from '../Fetching/Fetching';
+import { Select } from '../Select/Select';
+
+const FILTER_RELEASE_DESC = 'Date Release(DESC)';
+const FILTER_RELEASE_ASC = 'Date Release(ASC)';
+const FILTER_RATING_DESC = 'Rating(DESC)';
+const FILTER_RATING_ASC = 'Rating(ASC)';
 
 export const Home = ({ data }) => {
-  const { results } = data;
+  const selectList = [
+    FILTER_RELEASE_DESC,
+    FILTER_RELEASE_ASC,
+    FILTER_RATING_DESC,
+    FILTER_RATING_ASC,
+  ];
+  const [selectedFilter, setSelectedFilter] = React.useState(selectList[0]);
+
   const [nextPage, setNextPage] = React.useState(data.next);
-  const [stateGame, setStateGame] = React.useState(results);
+  const [stateGames, setStateGames] = React.useState(data.results);
   const [fetching, setFetching] = React.useState(false);
+
+  const getTimeStamp = (date) => new Date(date.split('-').join(',')).getTime();
+
+  const sort = () => {
+    if (selectedFilter === FILTER_RELEASE_DESC) {
+      setStateGames((prev) =>
+        [...prev].sort((a, b) =>
+          getTimeStamp(a.released) > getTimeStamp(b.released) ? -1 : 1
+        )
+      );
+    }
+    if (selectedFilter === FILTER_RELEASE_ASC) {
+      setStateGames((prev) =>
+        [...prev].sort((a, b) =>
+          getTimeStamp(a.released) > getTimeStamp(b.released) ? 1 : -1
+        )
+      );
+    }
+    if (selectedFilter === FILTER_RATING_DESC) {
+      setStateGames((prev) =>
+        [...prev].sort((a, b) => (a.rating > b.rating ? -1 : 1))
+      );
+    }
+    if (selectedFilter === FILTER_RATING_ASC) {
+      setStateGames((prev) =>
+        [...prev].sort((a, b) => (a.rating > b.rating ? 1 : -1))
+      );
+    }
+  };
 
   const scrollHandler = (e) => {
     if (
@@ -28,12 +70,17 @@ export const Home = ({ data }) => {
       try {
         const { data: newData } = await axios.get(nextPage);
         setNextPage(newData.next);
-        setStateGame([...stateGame, ...newData.results]);
+        setStateGames([...stateGames, ...newData.results]);
+        sort();
       } finally {
         setFetching(false);
       }
     }
   };
+
+  React.useEffect(() => {
+    sort();
+  }, [selectedFilter]);
 
   React.useEffect(() => {
     fetchData();
@@ -49,13 +96,15 @@ export const Home = ({ data }) => {
   return (
     <WrapperHome>
       <Search />
-      <button type="button" onClick={() => setStateGame('')}>
-        button
-      </button>
-      <H1>super game:</H1>
-      <span>choose your game</span>
+      <H1>super games</H1>
+      <span>choose your game:</span>
+      <Select
+        selected={selectedFilter}
+        setSelected={setSelectedFilter}
+        selectList={selectList}
+      />
       <WrapperGame>
-        {stateGame.map((game) => (
+        {stateGames.map((game) => (
           <Game key={game.id} {...game} />
         ))}
       </WrapperGame>

@@ -4,7 +4,7 @@ export const Preloader = (props) => (
     height="57"
     viewBox="0 0 57 57"
     xmlns="http://www.w3.org/2000/svg"
-    stroke="#fff"
+    stroke="#5F9EA0"
     fill="#5F9EA0"
     {...props}
   >

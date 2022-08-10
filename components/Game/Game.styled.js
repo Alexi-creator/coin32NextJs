@@ -33,6 +33,11 @@ export const DescriptionBlock = styled.div`
 
   & > a {
     font-size: 18px;
+    transition: ${({ theme }) => theme.transition.base};
+
+    &:hover {
+      color: #fff;
+    }
 
     @media ${({ theme }) => theme.media.extraLarge} {
       font-size: 24px;
@@ -47,23 +52,6 @@ export const Row = styled.div`
   align-items: center;
   margin-top: 20px;
   font-size: 15px;
-
-  /* & > span {
-    font-weight: 600;
-    border: 1px solid ${({ theme }) => theme.colors.primary};
-    padding: 5px 7px;
-    border-radius: 5px;
-    transition: ${({ theme }) => theme.transition.base};
-    cursor: default;
-    color: ${({ theme }) => theme.colors.green};
-    box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.green};
-
-    &:hover {
-      background-color: ${({ theme }) => theme.colors.primary};
-      color: ${({ theme }) => theme.colors.gray};
-      box-shadow: 0px 0px 8px ${({ theme }) => theme.colors.primary};
-    }
-  } */
 `;
 
 export const Rating = styled.span`
