@@ -27,7 +27,7 @@ export const AboutGame = ({ page }) => {
     platforms,
     released,
   } = page;
-  console.log(page);
+
   return (
     <AboutWrapper>
       <H1>{name}</H1>

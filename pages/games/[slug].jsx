@@ -1,8 +1,7 @@
-import axios from 'axios';
 import Head from 'next/head';
 import { withLayout } from '../../layout/Layout';
 import { AboutGame } from '../../components/index';
-import { api } from '../../helpers/api';
+import { gamesAPI } from '../../helpers/api';
 
 const GamePage = ({ page }) => {
   if (!page) {
@@ -24,8 +23,7 @@ const GamePage = ({ page }) => {
 export default withLayout(GamePage);
 
 export const getStaticPaths = async () => {
-  const { mainPage } = api({});
-  const { data } = await axios.get(mainPage);
+  const data = await gamesAPI.getGames();
   const { results } = data;
   const paths = results.map((game) => `/games/${game.slug}`);
 
@@ -43,8 +41,7 @@ export const getStaticProps = async (context) => {
   }
 
   try {
-    const { slugPage } = api({ slug: context.params.slug });
-    const { data } = await axios.get(slugPage);
+    const data = await gamesAPI.getGameSlug(context.params.slug);
     return {
       props: {
         page: data,
