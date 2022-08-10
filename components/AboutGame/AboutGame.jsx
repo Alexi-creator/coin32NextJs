@@ -1,4 +1,3 @@
-// import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper';
 /* eslint-disable import/no-unresolved */
@@ -29,7 +28,6 @@ export const AboutGame = ({ page }) => {
     released,
   } = page;
   console.log(page);
-  console.log(stores);
   return (
     <AboutWrapper>
       <H1>{name}</H1>
@@ -85,13 +83,9 @@ export const AboutGame = ({ page }) => {
             modules={[Pagination, Autoplay]}
           >
             {stores.map((item) => (
-              <SwiperSlide>
+              <SwiperSlide key={item.id}>
                 <div className="slider">
-                  <img
-                    key={item.id}
-                    src={item.store.image_background}
-                    alt="slide"
-                  />
+                  <img src={item.store.image_background} alt="slide" />
                 </div>
               </SwiperSlide>
             ))}

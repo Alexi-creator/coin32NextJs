@@ -13,13 +13,8 @@ const GamePage = ({ page }) => {
 
   return (
     <>
-      {/* Head позволяет перезаписывать мета данные title итд */}
       <Head>
-        {/* <title>{page.metaTitle}</title>
-          <meta name="description" content={page.metaDescription} />
-          <meta property="og:title" content={page.metaTitle} />
-          <meta property="og:description" content={page.metaDescription} />
-          <meta property="og:type" content="article" /> */}
+        <title>{page.name}</title>
       </Head>
       <AboutGame page={page} />
     </>
@@ -61,13 +56,3 @@ export const getStaticProps = async (context) => {
     };
   }
 };
-
-// export const getServerSideProps = async (context) => {
-//   const { slugPage } = api({ slug: context.params.slug });
-//   const { data } = await axios.get(slugPage);
-//   return {
-//     props: {
-//       page: data,
-//     },
-//   };
-// };
