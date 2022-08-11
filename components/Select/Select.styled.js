@@ -8,13 +8,13 @@ export const SelectWrapper = styled.div`
   min-width: 280px;
   background-color: #fff;
   color: #000;
-  padding: 10px;
   border-radius: 10px;
   cursor: pointer;
 `;
 
 export const Selected = styled.div`
   width: 100%;
+  padding: 10px;
 `;
 
 export const ArrowIconWrap = styled.div`
