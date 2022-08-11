@@ -163,9 +163,20 @@ export const Home = ({ data }) => {
         />
       </WrapFilters>
       <WrapperGame>
-        {stateGames.map((game) => (
-          <Game key={game.id} {...game} />
-        ))}
+        {stateGames
+          .filter((item) => {
+            let isPlatform = false;
+            for (let i = 0; i < item.platforms.length; i += 1) {
+              if (item.platforms[i].platform.name === selectedPlatform) {
+                isPlatform = true;
+                break;
+              }
+            }
+            return isPlatform;
+          })
+          .map((game) => (
+            <Game key={game.id} {...game} />
+          ))}
       </WrapperGame>
       {fetching && <Fetching />}
     </WrapperHome>
