@@ -17,6 +17,14 @@ export const Selected = styled.div`
   width: 100%;
 `;
 
+export const ArrowIconWrap = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: 10px;
+  transform: rotate(${(props) => (props.isOpen ? '0deg' : '180deg')});
+`;
+
 export const SelectList = styled.div`
   display: grid;
   grid-template-columns: 1fr;

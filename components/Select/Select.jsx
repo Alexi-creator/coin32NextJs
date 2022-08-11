@@ -1,5 +1,11 @@
 import React from 'react';
-import { SelectWrapper, SelectList, Selected } from './Select.styled';
+import {
+  SelectWrapper,
+  SelectList,
+  Selected,
+  ArrowIconWrap,
+} from './Select.styled';
+import ArrowIcon from '../../assets/images/ArrowIcon';
 
 export const Select = ({ selected, selectList = [], setSelected }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -32,6 +38,9 @@ export const Select = ({ selected, selectList = [], setSelected }) => {
       >
         {selected}
       </Selected>
+      <ArrowIconWrap isOpen={isOpen}>
+        <ArrowIcon />
+      </ArrowIconWrap>
       {isOpen && (
         <SelectList>
           {selectList.length &&

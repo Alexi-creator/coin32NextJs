@@ -1,29 +1,58 @@
 import React from 'react';
 import axios from 'axios';
 import { gamesAPI } from '../../helpers/api';
-import { WrapperHome, WrapperGame } from './Home.styled';
+import { WrapperHome, WrapperGame, WrapFilters } from './Home.styled';
 import { Game } from '../Game/Game';
-import { H1 } from '../Typography/Typography';
+import { H1, Ptag } from '../Typography/Typography';
 import { Search } from '../Search/Search';
 import { Fetching } from '../Fetching/Fetching';
 import { Select } from '../Select/Select';
 
-const FILTER_RELEASE_DESC = 'Date Release(DESC)';
-const FILTER_RELEASE_ASC = 'Date Release(ASC)';
-const FILTER_RATING_DESC = 'Rating(DESC)';
-const FILTER_RATING_ASC = 'Rating(ASC)';
+const FILTER_RELEASE_DESC = 'Date Release (DESC)';
+const FILTER_RELEASE_ASC = 'Date Release (ASC)';
+const FILTER_RATING_DESC = 'Rating (DESC)';
+const FILTER_RATING_ASC = 'Rating (ASC)';
+
+const FILTER_PLATFORMS_PC = 'PC';
+const FILTER_PLATFORMS_XBOX_SX = 'Xbox Series S/X';
+const FILTER_PLATFORMS_XBOX_360 = 'Xbox 360';
+const FILTER_PLATFORMS_XBOX_ONE = 'Xbox One';
+const FILTER_PLATFORMS_PLAYSTATION_5 = 'PlayStation 5';
+const FILTER_PLATFORMS_PLAYSTATION_4 = 'PlayStation 4';
+const FILTER_PLATFORMS_PLAYSTATION_3 = 'PlayStation 3';
+const FILTER_PLATFORMS_NINTENDO_SWITCH = 'Nintendo Switch';
+const FILTER_PLATFORMS_LINUX = 'Linux';
+const FILTER_PLATFORMS_MACOS = 'macOS';
 
 export const Home = ({ data }) => {
   const { next, results, count } = data;
 
-  const selectList = [
+  const selectListFilter = [
     FILTER_RELEASE_DESC,
     FILTER_RELEASE_ASC,
     FILTER_RATING_DESC,
     FILTER_RATING_ASC,
   ];
 
-  const [selectedFilter, setSelectedFilter] = React.useState(selectList[0]);
+  const selectListPlatforms = [
+    FILTER_PLATFORMS_PC,
+    FILTER_PLATFORMS_XBOX_SX,
+    FILTER_PLATFORMS_XBOX_360,
+    FILTER_PLATFORMS_XBOX_ONE,
+    FILTER_PLATFORMS_PLAYSTATION_5,
+    FILTER_PLATFORMS_PLAYSTATION_4,
+    FILTER_PLATFORMS_PLAYSTATION_3,
+    FILTER_PLATFORMS_NINTENDO_SWITCH,
+    FILTER_PLATFORMS_LINUX,
+    FILTER_PLATFORMS_MACOS,
+  ];
+
+  const [selectedFilter, setSelectedFilter] = React.useState(
+    selectListFilter[0]
+  );
+  const [selectedPlatform, setSelectedPlatform] = React.useState(
+    selectListPlatforms[0]
+  );
   const [stateSearchValue, setSearchValue] = React.useState('');
   const [resultsSearch, setResultsSearch] = React.useState('');
 
@@ -120,12 +149,19 @@ export const Home = ({ data }) => {
           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} games`}
       />
       <H1>super games</H1>
-      <span>choose your game:</span>
-      <Select
-        selected={selectedFilter}
-        setSelected={setSelectedFilter}
-        selectList={selectList}
-      />
+      <Ptag>choose your game:</Ptag>
+      <WrapFilters>
+        <Select
+          selected={selectedFilter}
+          setSelected={setSelectedFilter}
+          selectList={selectListFilter}
+        />
+        <Select
+          selected={selectedPlatform}
+          setSelected={setSelectedPlatform}
+          selectList={selectListPlatforms}
+        />
+      </WrapFilters>
       <WrapperGame>
         {stateGames.map((game) => (
           <Game key={game.id} {...game} />

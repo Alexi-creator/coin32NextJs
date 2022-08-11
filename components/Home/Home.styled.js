@@ -4,6 +4,17 @@ export const WrapperHome = styled.div`
   color: ${({ theme }) => theme.colors.font};
 `;
 
+export const WrapFilters = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+
+  @media ${({ theme }) => theme.media.medium} {
+    grid-template-columns: auto auto;
+    justify-content: left;
+  }
+`;
+
 export const WrapperGame = styled.div`
   display: grid;
   grid-template-columns: 1fr;
