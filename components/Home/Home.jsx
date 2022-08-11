@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { gamesAPI } from '../../helpers/api';
 import { WrapperHome, WrapperGame } from './Home.styled';
 import { Game } from '../Game/Game';
 import { H1 } from '../Typography/Typography';
@@ -13,19 +14,29 @@ const FILTER_RATING_DESC = 'Rating(DESC)';
 const FILTER_RATING_ASC = 'Rating(ASC)';
 
 export const Home = ({ data }) => {
+  const { next, results, count } = data;
+
   const selectList = [
     FILTER_RELEASE_DESC,
     FILTER_RELEASE_ASC,
     FILTER_RATING_DESC,
     FILTER_RATING_ASC,
   ];
-  const [selectedFilter, setSelectedFilter] = React.useState(selectList[0]);
 
-  const [nextPage, setNextPage] = React.useState(data.next);
-  const [stateGames, setStateGames] = React.useState(data.results);
+  const [selectedFilter, setSelectedFilter] = React.useState(selectList[0]);
+  const [stateSearchValue, setSearchValue] = React.useState('');
+  const [resultsSearch, setResultsSearch] = React.useState('');
+
+  const [nextPage, setNextPage] = React.useState(next);
+  const [stateGames, setStateGames] = React.useState(results);
   const [fetching, setFetching] = React.useState(false);
 
   const getTimeStamp = (date) => new Date(date.split('-').join(',')).getTime();
+
+  const search = async (str) => {
+    const { results: resSearch } = await gamesAPI.getGamesSearch(str);
+    setResultsSearch(resSearch);
+  };
 
   const sort = () => {
     if (selectedFilter === FILTER_RELEASE_DESC) {
@@ -79,6 +90,12 @@ export const Home = ({ data }) => {
   };
 
   React.useEffect(() => {
+    if (stateSearchValue) {
+      search(stateSearchValue);
+    } else setResultsSearch([]);
+  }, [stateSearchValue]);
+
+  React.useEffect(() => {
     sort();
   }, [selectedFilter]);
 
@@ -95,7 +112,13 @@ export const Home = ({ data }) => {
 
   return (
     <WrapperHome>
-      <Search />
+      <Search
+        resultsSearch={resultsSearch}
+        setSearchValue={setSearchValue}
+        placeholder={`Search ${count
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} games`}
+      />
       <H1>super games</H1>
       <span>choose your game:</span>
       <Select

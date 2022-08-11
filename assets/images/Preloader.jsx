@@ -1,4 +1,4 @@
-export const Preloader = (props) => (
+const Preloader = (props) => (
   <svg
     width="57"
     height="57"
@@ -74,3 +74,5 @@ export const Preloader = (props) => (
     </g>
   </svg>
 );
+
+export default Preloader;

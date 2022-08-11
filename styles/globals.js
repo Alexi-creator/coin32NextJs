@@ -17,7 +17,6 @@ export default createGlobalStyle`
 
   button {
     background: none;
-    border: none;
   }
 
   body {
@@ -48,6 +47,7 @@ export default createGlobalStyle`
   textarea,
   select {
     font: inherit;
+    border: none;
   }
 
   @media (prefers-reduced-motion: reduce) {

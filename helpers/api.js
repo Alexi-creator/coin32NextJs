@@ -15,4 +15,9 @@ export const gamesAPI = {
       .get(`games/${slug}?key=e857da9e151e41e583a87eaba9ff2147`)
       .then((response) => response.data);
   },
+  getGamesSearch(search) {
+    return instance
+      .get(`games?search=${search}&key=e857da9e151e41e583a87eaba9ff2147`)
+      .then((response) => response.data);
+  },
 };

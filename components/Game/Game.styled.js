@@ -19,9 +19,9 @@ export const ImgBlockWrapper = styled.div`
 `;
 
 export const ImgBlock = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: ${(props) => props.position || 'absolute'};
+  width: ${(props) => props.width || '100%'};
+  height: ${(props) => props.height || '100%'};
   background-image: url(${(props) => props.uriImg});
   background-position: 50%;
   background-size: cover;
